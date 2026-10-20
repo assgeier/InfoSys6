@@ -1,0 +1,8 @@
+amount;urgent;risk;personal
+;true;LOW;false
+abc;true;LOW;false
+-5;false;LOW;false
+100;yes;LOW;false
+100;true;EXTREME;false
+100;true;LOW
+100;true;LOW;false

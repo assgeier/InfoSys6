@@ -1,0 +1,20 @@
+digraph C {
+graph [rankdir=TB, bgcolor="white", pad=0.2, nodesep=0.35, ranksep=0.5];
+node [shape=record, style="filled", fontname="Times New Roman", fontsize=10, color="#2F5597", fillcolor="#F7FBFF"];
+edge [fontname="Times New Roman", fontsize=9, color="#555555"];
+runner [label="{CsvRunner||+ main(String[]) void\l~ run(List\<String\>) void\l}"];
+parser [label="{RequestParser|+ HEADER String\l|+ parse(String) ApprovalRequest\l- parseAmount(String) long\l- parseBoolean(String,String) boolean\l- parseRisk(String) RiskLevel\l}"];
+req [label="{ApprovalRequest|amount long\lurgent boolean\lrisk RiskLevel\lcontainsPersonalData boolean\l|}"];
+a [label="{ApprovalRouter|+ FINANCE_LIMIT long\l|+ route(long,boolean,RiskLevel,boolean) ApprovalRoute\l- validate(long,RiskLevel) void\l- isHighRisk(RiskLevel) boolean\l- requiresFinance(long) boolean\l}"];
+r [label="{ApprovalRoute||STANDARD\lFAST_TRACK\lFINANCE_REVIEW\lDIRECTOR_REVIEW\lSECURITY_REVIEW\l}"];
+risk [label="{RiskLevel||LOW\lMEDIUM\lHIGH\l}"];
+sc [label="{SelfCheck||+ main(String[]) void\l}"];
+runner -> parser [label="uses",style=dashed,arrowhead=open];
+runner -> a [label="uses",style=dashed,arrowhead=open];
+parser -> req [label="creates",style=dashed,arrowhead=open];
+req -> risk [label="has",arrowhead=open];
+a -> r [label="returns",style=dashed,arrowhead=open];
+a -> risk [label="uses",style=dashed,arrowhead=open];
+sc -> a [label="checks",style=dashed,arrowhead=open];
+sc -> parser [label="checks",style=dashed,arrowhead=open];
+}
